@@ -1,1 +1,0 @@
-web: gunicorn --pythonpath WakeApp WakeApp.wsgi

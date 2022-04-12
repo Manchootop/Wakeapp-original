@@ -1,0 +1,37 @@
+from django.urls import path
+from django.contrib.auth import views as auth_views
+
+from WakeApp.account.views import UserRegistrationView, UserLoginView, account_view, account_search_view, \
+    edit_account_view, home_screen_view
+
+app_name = 'account'
+
+urlpatterns = (
+    path('', home_screen_view, name='home'),
+    path('account/<user_id>/', account_view, name="view"),
+    path('account/<user_id>/edit/', edit_account_view, name="edit"),
+    path('register/', UserRegistrationView.as_view(), name='register'),
+    path('login/', UserLoginView.as_view(), name='login'),
+    path('<int:user_id>', account_view, name='show account'),
+    path('search/', account_search_view, name="search"),
+
+    # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
+    path('password_change/done/',
+         auth_views.PasswordChangeDoneView.as_view(template_name='account/password_change_done.html'),
+         name='password_change_done'),
+
+    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='account/password_change.html'),
+         name='password_change'),
+
+    path('password_reset/done/',
+         auth_views.PasswordResetCompleteView.as_view(template_name='account/password_reset_done.html'),
+         name='password_reset_done'),
+
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+
+    path('reset/done/',
+         auth_views.PasswordResetCompleteView.as_view(template_name='password_reset/password_reset_complete.html'),
+         name='password_reset_complete'),
+
+)

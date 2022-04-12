@@ -123,7 +123,7 @@ AUTH_USER_MODEL = 'account.WakeAppUser'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Extra places for collectstatic to find static files.

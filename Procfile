@@ -1,1 +1,1 @@
-web: gunicorn WakeApp.wsgi
+web: gunicorn WakeApp WakeApp.wsgi

@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-940or0!s)0@t$f-$jboxndzw!tubvz4)xs10in-%@fc@d^8pkb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['wakeapp-original.herokuapp.com', 'http://127.0.0.1:8000/']
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -124,11 +125,11 @@ AUTH_USER_MODEL = 'account.WakeAppUser'
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    BASE_DIR / 'static',
+    os.path.join(BASE_DIR, 'static'),
 )
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

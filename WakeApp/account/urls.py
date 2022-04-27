@@ -2,18 +2,22 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 
 from WakeApp.account.views import UserRegistrationView, UserLoginView, account_view, account_search_view, \
-    edit_account_view, home_screen_view
+    edit_account_view, home_screen_view, crop_image, UserLogoutView, EditProfileView
 
 app_name = 'account'
 
 urlpatterns = (
-    path('', home_screen_view, name='home'),
+    path('logout/<user_id>/', UserLogoutView.as_view(), name='logout'),
+    path('home/', home_screen_view, name='home'),
     path('account/<user_id>/', account_view, name="view"),
-    path('account/<user_id>/edit/', edit_account_view, name="edit"),
+    path('account/<user_id>/edit/', EditProfileView.as_view(), name="edit"),
     path('register/', UserRegistrationView.as_view(), name='register'),
-    path('login/', UserLoginView.as_view(), name='login'),
+    path('accounts/login/', UserLoginView.as_view(), name='login'),
     path('<int:user_id>', account_view, name='show account'),
     path('search/', account_search_view, name="search"),
+    path('<user_id>/', account_view, name="view"),
+    path('<user_id>/edit/', edit_account_view, name="edit"),
+    path('<user_id>/edit/cropImage/', crop_image, name="crop_image"),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path('password_change/done/',

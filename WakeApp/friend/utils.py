@@ -1,4 +1,4 @@
-from friend.models import FriendRequest
+from WakeApp.friend.models import FriendRequest
 
 
 def get_friend_request_or_false(sender, receiver):

@@ -1,1 +1,1 @@
-web: gunicorn WakeApp.wsgi --log-file -
+web: gunicorn WakeApp.wsgi

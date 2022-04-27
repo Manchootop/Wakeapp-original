@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -27,7 +29,7 @@ SECRET_KEY = 'django-insecure-940or0!s)0@t$f-$jboxndzw!tubvz4)xs10in-%@fc@d^8pkb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['wakeapp-original.herokuapp.com', 'http://127.0.0.1:8000/']
+ALLOWED_HOSTS = []
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
@@ -44,6 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'WakeApp.core',
     'WakeApp.account',
+    'WakeApp.friend',
+    'WakeApp.notification',
+    'WakeApp.chat',
 ]
 
 MIDDLEWARE = [
@@ -82,10 +87,20 @@ WSGI_APPLICATION = 'WakeApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'wake_app_db',
+        'USER': 'postgres',
+        'PASSWORD': 'Thatshurt',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -143,10 +158,14 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'account.WakeAppUser'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.AllowAllUsersModelBackend',
     'WakeApp.account.backends.CaseInsensitiveModelBackend',
     )
+
+BASE_URL = "http://127.0.0.1:8000"
+
+LOGIN_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = '/home/'
 

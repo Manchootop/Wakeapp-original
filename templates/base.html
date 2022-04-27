@@ -8,6 +8,7 @@
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+        <link rel="icon" type="image/png" href="https://i.ibb.co/QFBMr6v/logo.png">
 	<link href="https://fonts.googleapis.com/css2?family=Material+Icons"
       rel="stylesheet">
 
@@ -27,6 +28,16 @@
 {% include 'snippets/base_css.html' %}
 {% include 'snippets/base_js.html' %}
 {% include 'snippets/header.html' %}
+
+{% for message in messages %}
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+  <strong>{{ message }}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+{% endfor %}
 
 <div class="container" id="id_loading_spinner" style="display: none">
 	<div class="d-flex flex-row mx-auto flex-grow-1 justify-content-center">
@@ -76,3 +87,11 @@
 
 
 </html>
+
+<script>
+    setTimeout(function (){
+        if ($('#msg').length > 0){
+            $('#msg').remove();
+        }
+    }, 20000)
+</script>

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class='text-center'>
+    {% if events %}
+        All Events
+    {% else %}
+        No events created yet
+    {% endif %}
+</h1>
+
+{% if events %}
+<div class="container mb-5">
+    <div class="row mb-5">
+        {% for event in events %}
+            <div class="card ml-3 mb-3" style="width: 18rem;">
+            <!-- Image -->
+            <img src=""
+                 class="card-img-top" alt="Event description">
+            <div class="card-body">
+            <h5 class="card-title">
+            {{ event.title }}
+            <h5/>
+        {% endfor %}
+        <!-- First 30 chars from the description -->
+        <p class="card-text">{{ pet_photo.description|truncatechars:30 }}</p>
+        <!-- Button to the Photo Details Page -->
+        <a href="{% url 'pet photo details' pet_photo.id %}" class="btn btn-primary">See details</a>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class=" row d-flex justify-content-center align-content-center">
+    <a href="{% url 'create pet photo' %}" class="btn btn-lg btn-secondary row align-self-baseline">Add
+        Photo</a>
+</div>
+{% endif %}
+
+{% endblock %}

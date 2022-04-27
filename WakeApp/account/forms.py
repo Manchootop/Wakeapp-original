@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import forms as auth_forms, get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
-from WakeApp.account.models import Profile, WakeAppUser
+from WakeApp.account.models import Profile
 
 
 class CreateProfileForm(UserCreationForm):
@@ -35,7 +35,7 @@ class CreateProfileForm(UserCreationForm):
             last_name=self.cleaned_data['last_name'],
             # picture=self.cleaned_data['picture'],
             date_of_birth=self.cleaned_data['date_of_birth'],
-            # description=self.cleaned_data['description'],
+            description=self.cleaned_data['description'],
             email=self.cleaned_data['email'],
             gender=self.cleaned_data['gender'],
             user=user,
@@ -46,8 +46,8 @@ class CreateProfileForm(UserCreationForm):
         return user
 
     class Meta:
-        model = WakeAppUser
-        fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'gender')
+        model = get_user_model()
+        fields = ('username', 'password1', 'password2', 'email','first_name', 'last_name', 'gender', 'picture', 'date_of_birth')
         widgets = {
             'first_name': forms.TextInput(
                 attrs={
@@ -74,7 +74,7 @@ class EditProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = '__all__'
+        exclude = ('email', 'profile_image',)
         widgets = {
             'first_name': forms.TextInput(
                 attrs={
@@ -91,6 +91,7 @@ class EditProfileForm(forms.ModelForm):
             'profile_image': forms.TextInput(
                 attrs={
                     'placeholder': 'Enter URL',
+                    'class': 'form-control',
                 }
             ),
             'email': forms.EmailInput(
@@ -108,52 +109,53 @@ class EditProfileForm(forms.ModelForm):
             'date_of_birth': forms.DateInput(
                 attrs={
                     'min': '1920-01-01',
+                    'class': 'form-control',
                 }
             )
         }
 
-
-class EditProfileForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.initial['gender'] = Profile.DO_NOT_SHOW
-
-    class Meta:
-        model = Profile
-        fields = '__all__'
-        widgets = {
-            'first_name': forms.TextInput(
-                attrs={
-                    'placeholder': 'Enter first name',
-                }
-            ),
-            'last_name': forms.TextInput(
-                attrs={
-                    'placeholder': 'Enter last name',
-                }
-            ),
-            'picture': forms.TextInput(
-                attrs={
-                    'placeholder': 'Enter URL',
-                }
-            ),
-            'email': forms.EmailInput(
-                attrs={
-                    'placeholder': 'Enter email',
-                }
-            ),
-            'description': forms.Textarea(
-                attrs={
-                    'placeholder': 'Enter description',
-                    'rows': 3,
-                },
-            ),
-            'date_of_birth': forms.DateInput(
-                attrs={
-                    'min': '1920-01-01',
-                }
-            )
-        }
+#
+# class EditProfileForm(forms.ModelForm):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.initial['gender'] = Profile.DO_NOT_SHOW
+#
+#     class Meta:
+#         model = Profile
+#         fields = '__all__'
+#         widgets = {
+#             'first_name': forms.TextInput(
+#                 attrs={
+#                     'placeholder': 'Enter first name',
+#                 }
+#             ),
+#             'last_name': forms.TextInput(
+#                 attrs={
+#                     'placeholder': 'Enter last name',
+#                 }
+#             ),
+#             'picture': forms.TextInput(
+#                 attrs={
+#                     'placeholder': 'Enter URL',
+#                 }
+#             ),
+#             'email': forms.EmailInput(
+#                 attrs={
+#                     'placeholder': 'Enter email',
+#                 }
+#             ),
+#             'description': forms.Textarea(
+#                 attrs={
+#                     'placeholder': 'Enter description',
+#                     'rows': 3,
+#                 },
+#             ),
+#             'date_of_birth': forms.DateInput(
+#                 attrs={
+#                     'min': '1920-01-01',
+#                 }
+#             )
+#         }
 
 # class DeleteProfileForm(forms.ModelForm):
 #     def save(self, commit=True):

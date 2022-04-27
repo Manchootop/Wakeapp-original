@@ -1,20 +1,13 @@
 from django.urls import path
 
-from friend.views import(
-	send_friend_request,
-	friend_requests,
-	accept_friend_request,
-	remove_friend,
-	decline_friend_request,
-	cancel_friend_request,
-	friends_list_view,
-)
+from WakeApp.friend.views import friends_list_view, remove_friend, send_friend_request, cancel_friend_request, \
+    friend_requests, accept_friend_request, decline_friend_request
 
 app_name = 'friend'
 
 urlpatterns = [
-	path('list/<user_id>', friends_list_view, name='list'),
-	path('friend_remove/', remove_friend, name='remove-friend'),
+    path('list/<user_id>', friends_list_view, name='list'),
+    path('friend_remove/', remove_friend, name='remove-friend'),
     path('friend_request/', send_friend_request, name='friend-request'),
     path('friend_request_cancel/', cancel_friend_request, name='friend-request-cancel'),
     path('friend_requests/<user_id>/', friend_requests, name='friend-requests'),

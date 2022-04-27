@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+
+{% extends 'base.html' %}
+{% block content %}
 <head>
     <meta charset="utf-8">
     <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
@@ -27,15 +28,27 @@
                         <div class="m-sm-4">
                             <form>
                                 {% csrf_token %}
+{#                                {% for field in form %}#}
+{#                                  <div class="form-group">#}
+{#                                    <label>{{ form.label }}</label>#}
+{#                                    {{ form.username }}#}
+{#                                </div>#}
+{#                                {% for error in field.errors %}#}
+{#                                <p style="color: red">{{ error }}</p>#}
+{#                                {% endfor %}#}
+{#                                </p>#}
+{#                                {% endfor %}#}
+{#                                {% if form.non_field_errors %}#}
+{#                                <div style="color: red">#}
+{#                                <p>{{form.non_field_errors}}</p>#}
+{#                                </div>#}
+
+{#                                {% endif %}#}
 
                                 <div class="form-group">
                                     <label>Username</label>
                                     {{ form.username }}
                                 </div>
-{#                                <div class="form-group">#}
-{#                                    <label>Company</label>#}
-                                    {#                                        <input class="form-control form-control-lg" type="text" name="company"#}
-                                    {#                                               placeholder="Enter your company name">#}
 
 
                                 <div class="form-group">
@@ -65,12 +78,14 @@
                                 <div class="form-group">
                                     <label>Date of birth</label>
                                     {{ form.date_of_birth }}
+
                                 </div>
-
-
+                                {% for error in field %}
+                                    {{ error }}
+                                {% endfor %}
                                 <div class="text-center mt-3">
-                                    <a href="{% url 'dashboard' %}" class="btn btn-lg btn-primary">Sign up</a>
-                                    <!-- <button type="submit" class="btn btn-lg btn-primary">Sign up</button> -->
+{#                                    <a href="{% url 'dashboard' %}" class="btn btn-lg btn-primary">Sign up</a>#}
+                                    <button type="submit" class="btn btn-lg btn-primary">Sign up</button>
                                 </div>
 
                             </form>
@@ -113,4 +128,4 @@
 
 </script>
 </body>
-</html>
+{% endblock %}
